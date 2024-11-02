@@ -1,10 +1,31 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="UTF-8">
+    <title>Title</title>
 </head>
 <body>
-$END$
+<h1>Xin Chào</h1>
+<table>
+  <thead>
+  <tr>
+    <th>STT</th>
+    <th>Tên</th>
+    <th>Giá</th>
+    <th>Loại SP</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="p, loop : ${list}">
+    <td th:text="${loop.count}"></td>
+    <td th:text="${p.name}"></td>
+    <td th:text="${p.price}"></td>
+    <td th:text="${p.category.name}"></td>
+  </tr>
+  </tbody>
+</table>
+<a th:href="@{/(page=${list.number - 1})}" th:if="${list.hasPrevious()}">Trang trước</a>
+<a th:each="i : ${#numbers.sequence(0, list.totalPages - 1)}" th:href="@{/(page=${i})}" th:text="${i+1}"></a>
+<a th:href="@{/(page=${list.number + 1})}" th:if="${list.hasNext()}">Trang sau</a>
 </body>
 </html>
